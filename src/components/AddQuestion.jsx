@@ -33,11 +33,8 @@ const AddQuestion = ({ onClose, onSave, editing}) => {
     status: "pending",
     notes: "",
   })
-
-    console.log(formData);
-
-    // Later:
-    // await axios.post("/api/questions", formData)
+  
+   
   };
 
   return (

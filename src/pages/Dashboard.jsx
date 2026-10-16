@@ -6,35 +6,25 @@ import {
   PlayCircle,
   ChevronRight,
 } from "lucide-react";
+import { useEffect } from "react";
 
-const Dashboard = () => {
-  const stats = [
-    {
-      title: "Total Questions",
-      value: 420,
-      icon: <BookOpen size={30} />,
-      color: "bg-blue-100 text-blue-600",
-    },
-    {
-      title: "Completed DSA",
-      value: 185,
-      icon: <Brain size={30} />,
-      color: "bg-green-100 text-green-600",
-    },
-    {
-      title: "Interview Questions",
-      value: 96,
-      icon: <Code2 size={30} />,
-      color: "bg-purple-100 text-purple-600",
-    },
-    {
-      title: "Machine Coding",
-      value: "3 / 10",
-      icon: <Laptop2 size={30} />,
-      color: "bg-orange-100 text-orange-600",
-    },
-  ];
+const Dashboard = ({totalQuestions, dsaQuestions, completedDsa, interviewQuestions, completedInterview, machineCoding, codingQuestions}) => {
+ 
+  const dsaPercent = Math.floor((completedDsa / dsaQuestions)*100)
+  const interviewPercent = Math.floor((completedInterview / interviewQuestions)*100)
+  
+  const totalCoding = codingQuestions.length
+  const completeCoding = codingQuestions.filter((t)=>{
+    return t.status === "completed"
+  }).length
+  
 
+
+
+
+
+
+  
   return (
     <div className="h-auto bg-gray-100 p-8">
 
@@ -54,28 +44,89 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-        {stats.map((item) => (
+        
+
+        <div className="bg-white rounded-xl flex items-center justify-between shadow-sm py-2 px-5">
           <div
-            key={item.title}
-            className="bg-white rounded-xl flex items-center justify-between shadow-sm py-2 px-5"
-          >
-            <div
-              className={`w-14 h-14 rounded-xl flex items-center justify-center ${item.color}`}
+              className={`w-14 h-14 rounded-xl flex items-center justify-center bg-blue-100 text-blue-600`}
             >
-              {item.icon}
+              <BookOpen size={30} />
             </div>
 
            <div>
              <p className="text-gray-800 mt-5">
-              {item.title}
+              Total Questions
             </p>
 
             <h2 className="text-3xl font-bold mt-1">
-              {item.value}
+              {totalQuestions}
             </h2>
            </div>
-          </div>
-        ))}
+        </div>
+
+
+        <div className="bg-white rounded-xl flex items-center justify-between shadow-sm py-2 px-5">
+          <div
+              className={`w-14 h-14 rounded-xl flex items-center justify-center bg-green-100 text-green-600`}
+            >
+              <Brain size={30} />
+            </div>
+
+           <div>
+             <p className="text-gray-800 mt-5">
+              Completed DSA
+            </p>
+
+            <h2 className="text-3xl font-bold mt-1">
+              {completedDsa}/{dsaQuestions}
+            </h2>
+           </div>
+        </div>
+
+
+         <div className="bg-white rounded-xl flex items-center justify-between shadow-sm py-2 px-5">
+          <div
+              className={`w-14 h-14 rounded-xl flex items-center justify-center bg-purple-100 text-purple-600`}
+            >
+              <Code2 size={30} />
+            </div>
+
+           <div>
+             <p className="text-gray-800 mt-5">
+              Interview Questions
+            </p>
+
+            <h2 className="text-3xl font-bold mt-1">
+              {completedInterview}/{interviewQuestions}
+            </h2>
+           </div>
+        </div>
+
+
+        <div className="bg-white rounded-xl flex items-center justify-between shadow-sm py-2 px-5">
+          <div
+              className={`w-14 h-14 rounded-xl flex items-center justify-center bg-orange-100 text-orange-600`}
+            >
+              <Laptop2 size={30} />
+            </div>
+
+           <div>
+             <p className="text-gray-800 font-semibold mt-5">
+              Machine Coding Tasks
+            </p>
+
+            <h2 className="text-3xl font-bold mt-1">
+              {completeCoding} / {totalCoding}
+            </h2>
+           </div>
+        </div>
+
+
+
+
+
+
+
 
       </div>
 
@@ -89,8 +140,8 @@ const Dashboard = () => {
 
         <div className="flex justify-between gap-7 w-full">
             {[
-          { title: "DSA", value: 62 },
-          { title: "Interview Questions", value: 48 },
+          { title: "DSA", value: dsaPercent},
+          { title: "Interview Questions", value: interviewPercent },
           { title: "Machine Coding", value: 30 },
         ].map((item) => (
           <div key={item.title} className="mb-1 bg-gray-100 p-4 w-full rounded-2xl flex flex-col ">

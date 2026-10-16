@@ -2,12 +2,14 @@ import { Search, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddQuestion from "./AddQuestion";
 
-const Questions = () => {
+const Questions = ({setTotalQuestions, setDsaQuestions, setInterviewQuestions, setMachineCoding}) => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("")
   const [status, setStatus] = useState("");
   const [editing, setEditing] = useState(false)
+
+
 
 
   const [questions, setQuestions] = useState(()=>{
@@ -16,7 +18,7 @@ const Questions = () => {
   } )
   const [showForm, setShowForm] = useState(false)
 
-  const handleSave = (questionData)=>{
+  const onSave = (questionData)=>{
 
     if(editing){
       setQuestions((prev)=>
@@ -45,14 +47,12 @@ const Questions = () => {
   }
 
   const handleEdit = (question)=>{
-    console.log(question);
     setEditing(question)
   }
 
 
 
 
-// const savedQuestions = JSON.parse(localStorage.getItem("questions"))
 
 
 
@@ -91,7 +91,7 @@ const filteredQuestions = questions.filter((q)=> {
 
     <div>
           {showForm && (
-          <AddQuestion onSave = {handleSave} 
+          <AddQuestion onSave = {onSave} 
           onClose= {()=>{setShowForm(false)
             setEditing(null)
           }} editing = {editing} />
@@ -125,6 +125,25 @@ const filteredQuestions = questions.filter((q)=> {
           </div>  
 
 
+
+          {/* Category */}
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="">All Categories</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="DSA">DSA</option>
+            <option value="Git">Git</option>
+          </select>
+
+
+
+
+
           {/* Difficulty */}
 
           <select
@@ -140,18 +159,7 @@ const filteredQuestions = questions.filter((q)=> {
 
 
 
-          {/* Category */}
-
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="border rounded-lg px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">All Categories</option>
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="DSA">DSA</option>
-          </select>
+          
 
           {/* Status */}
 
