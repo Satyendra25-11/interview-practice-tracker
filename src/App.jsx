@@ -5,7 +5,7 @@ import Questions from "./components/Questions";
 import MachineCoding from "./components/MachineCoding";
 
 const App = () => {
-  const questions = JSON.parse(localStorage.getItem("questions"));
+  const questions = JSON.parse(localStorage.getItem("questions") || []);
 
   const [totalQuestions, setTotalQuestions] = useState(questions.length || 0);
   const [dsaQuestions, setDsaQuestions] = useState(() => {
@@ -37,7 +37,7 @@ const App = () => {
 
 
 
-  const [codingQuestions, setcodingQuestions] = useState(JSON.parse(localStorage.getItem("codingQuestions")))
+  const [codingQuestions, setcodingQuestions] = useState(JSON.parse(localStorage.getItem("codingQuestions")) || [])
 
 
 
