@@ -2,7 +2,7 @@ import { Search, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddQuestion from "./AddQuestion";
 
-const Questions = ({setTotalQuestions, setDsaQuestions, setInterviewQuestions, setMachineCoding}) => {
+const Questions = ({setTotalQuestions, setDsaQuestions, setInterviewQuestions, setMachineCoding, questions, setQuestions}) => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("")
@@ -12,10 +12,7 @@ const Questions = ({setTotalQuestions, setDsaQuestions, setInterviewQuestions, s
 
 
 
-  const [questions, setQuestions] = useState(()=>{
-    const saved = localStorage.getItem("questions")
-    return saved ? JSON.parse(saved) : []
-  } )
+ 
   const [showForm, setShowForm] = useState(false)
 
   const onSave = (questionData)=>{

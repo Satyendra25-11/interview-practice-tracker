@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CodingTaskForm from "./CodingTaskForm";
 
-const MachineCoding = () => {
+const MachineCoding = ({codingQuestions, setcodingQuestions}) => {
   const [isTaskEditing, setIsTaskEditing] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [codingQuestions, setcodingQuestions] = useState(() => {
-    const codingTasks = localStorage.getItem("codingQuestions");
-    return codingTasks ? JSON.parse(codingTasks) : [];
-  });
+
 
 
 

@@ -5,39 +5,35 @@ import Questions from "./components/Questions";
 import MachineCoding from "./components/MachineCoding";
 
 const App = () => {
-  const questions = JSON.parse(localStorage.getItem("questions")) || [];
+  // const questions = JSON.parse(localStorage.getItem("questions")) || [];
 
-  const [totalQuestions, setTotalQuestions] = useState(questions.length || 0);
-  const [dsaQuestions, setDsaQuestions] = useState(() => {
-    return questions.filter((q) => q.category === "DSA")
-  });
+   const [questions, setQuestions] = useState(()=>{
+    const saved = localStorage.getItem("questions")
+    return saved ? JSON.parse(saved) : []
+  } )
 
-  const [interviewQuestions, setInterviewQuestions] = useState(() => {
-    return questions.filter(
+  const totalQuestions = questions.length
+
+  const dsaQuestions = questions.filter((q) => q.category === "DSA")
+  const interviewQuestions = questions.filter(
       (q) => q.category === "Frontend" || q.category === "Backend" || q.category === "Git",
     )
-  });
+
   const [machineCoding, setMachineCoding] = useState(0);
 
-  
 
-  const [completedDsa, setCompletedDsa] = useState(dsaQuestions.filter((q)=> q.status === "completed"))
-  const [completedInterview, setCompletedInterview] = useState(interviewQuestions.filter((q)=> q.status === "completed"))
-
-  // const completedDsa = dsaQuestions.filter((q)=> q.status === "completed")
-  // const completedInterview = interviewQuestions.filter((q)=> q.status === "completed")
-
-
-  
-
-
-  // const [totalCodingQuestions, setTotalCodingQuestions] = useState(JSON.parse(localStorage.getItem("codingQuestions")))
-
-
-
-
-
+  const completedDsa = dsaQuestions.filter((q)=> q.status === "completed")
+  const completedInterview = interviewQuestions.filter((q)=> q.status === "completed")
   const [codingQuestions, setcodingQuestions] = useState(JSON.parse(localStorage.getItem("codingQuestions")) || [])
+
+
+  //   const [codingQuestions, setcodingQuestions] = useState(() => {
+  //   const codingTasks = localStorage.getItem("codingQuestions");
+  //   return codingTasks ? JSON.parse(codingTasks) : [];
+  // });
+
+
+
 
 
 
@@ -56,11 +52,10 @@ const App = () => {
         machineCoding={machineCoding}
         codingQuestions={codingQuestions}
       />
-      <MachineCoding setcodingQuestions={setcodingQuestions}/>
+      <MachineCoding codingQuestions={codingQuestions} setcodingQuestions={setcodingQuestions}/>
       <Questions
-        setTotalQuestions={setTotalQuestions}
-        setDsaQuestions={setDsaQuestions}
-        setInterviewQuestions={setInterviewQuestions}
+        questions={questions}
+        setQuestions={setQuestions}
         setMachineCoding={setMachineCoding}
       />
     </div>

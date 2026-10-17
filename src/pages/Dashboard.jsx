@@ -9,15 +9,19 @@ import {
 import { useEffect } from "react";
 
 const Dashboard = ({totalQuestions, dsaQuestions, completedDsa, interviewQuestions, completedInterview, machineCoding, codingQuestions}) => {
- 
-  const dsaPercent = Math.floor((completedDsa / dsaQuestions)*100)
-  const interviewPercent = Math.floor((completedInterview / interviewQuestions)*100)
   
   const totalCoding = codingQuestions.length
   const completeCoding = codingQuestions.filter((t)=>{
     return t.status === "completed"
   }).length
+
   
+  
+  
+   const dsaPercent = Math.floor((completedDsa / dsaQuestions)*100 || 0)
+  const interviewPercent = Math.floor((completedInterview / interviewQuestions)*100 || 0)
+  const codingPercent = Math.floor((totalCoding / completeCoding)*100 || 0)
+
 
 
 
@@ -142,7 +146,7 @@ const Dashboard = ({totalQuestions, dsaQuestions, completedDsa, interviewQuestio
             {[
           { title: "DSA", value: dsaPercent},
           { title: "Interview Questions", value: interviewPercent },
-          { title: "Machine Coding", value: 30 },
+          { title: "Machine Coding", value: codingPercent },
         ].map((item) => (
           <div key={item.title} className="mb-1 bg-gray-100 p-4 w-full rounded-2xl flex flex-col ">
 
